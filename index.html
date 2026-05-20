@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HuaYan · Multi-Agent System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============================ 首页 ============================ -->
+<section id="page-home" class="page page-home active">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-glyph">◆</span>
+      <span class="brand-name">HuaYan</span>
+      <span class="brand-sep">/</span>
+      <span class="brand-sub">Multi-Agent System</span>
+    </div>
+    <nav class="topnav">
+      <a href="#home" class="active">首页</a>
+      <a href="#agents">智能体</a>
+      <a href="#about">架构</a>
+      <a href="https://github.com" target="_blank" rel="noopener" class="topnav-cta">GitHub →</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-tag">
+      <span class="dot"></span> 基于 OpenClaw · 三智能体协同架构
+    </div>
+    <h1 class="hero-title">
+      AI 驱动的全自动，<br/>
+      <span class="accent">客服解决方案。</span>
+    </h1>
+    <p class="hero-sub">
+      一位负责意图识别的接待智能体，两位领域专精的子智能体，
+      以及一道兜底的安全网。
+    </p>
+    <div class="hero-cta">
+      <a href="#scene1" class="btn-primary">进入演示 <span class="arr">→</span></a>
+      <a href="#about" class="btn-ghost">查看架构</a>
+    </div>
+  </section>
+
+  <section class="agents" id="agents">
+    <div class="section-head">
+      <span class="section-label">01 — 智能体</span>
+      <h2 class="section-title">三个角色，一场对话。</h2>
+    </div>
+
+    <div class="agent-grid">
+      <article class="agent-card" data-agent="xiaomei">
+        <div class="agent-head">
+          <div class="agent-id">A-01</div>
+          <div class="agent-status"><span class="dot dot-violet"></span> 接待</div>
+        </div>
+        <h3 class="agent-name">小美<span class="agent-cn">（接待Agent）</span></h3>
+        <ul class="agent-desc">
+          <li>客户首次咨询，意图识别</li>
+          <li>任务拆解分发到子Agent</li>
+        </ul>
+        <div class="agent-foot">
+          <span>进入对话</span>
+          <span class="arr">→</span>
+        </div>
+      </article>
+
+      <article class="agent-card" data-agent="lily">
+        <div class="agent-head">
+          <div class="agent-id">A-02</div>
+          <div class="agent-status"><span class="dot dot-pink"></span> 销售</div>
+        </div>
+        <h3 class="agent-name">Lily<span class="agent-cn">（销售Agent）</span></h3>
+        <ul class="agent-desc">
+          <li>产品答疑（功效，对比）</li>
+          <li>产品推荐</li>
+          <li>引导下单</li>
+        </ul>
+        <div class="agent-foot">
+          <span>进入对话</span>
+          <span class="arr">→</span>
+        </div>
+      </article>
+
+      <article class="agent-card" data-agent="anan">
+        <div class="agent-head">
+          <div class="agent-id">A-03</div>
+          <div class="agent-status"><span class="dot dot-cyan"></span> 售后</div>
+        </div>
+        <h3 class="agent-name">安安<span class="agent-cn">（售后Agent）</span></h3>
+        <ul class="agent-desc">
+          <li>物流查询</li>
+          <li>退换货</li>
+          <li>退款</li>
+        </ul>
+        <div class="agent-foot">
+          <span>进入对话</span>
+          <span class="arr">→</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="section-head">
+      <span class="section-label">02 — 流程设计</span>
+      <h2 class="section-title">Agent 间协作链路。</h2>
+    </div>
+    <div class="about-flow">
+      <div class="flow-canvas" id="home-flow-canvas">
+        <svg class="flow-svg" viewBox="0 0 400 540" preserveAspectRatio="none">
+          <defs>
+            <marker id="arrow-home" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="rgba(255,255,255,0.35)"/>
+            </marker>
+          </defs>
+
+          <!-- 用户 ↔ 小美 -->
+          <path class="flow-edge edge-bi fired"
+                d="M 200 56 L 200 144" marker-end="url(#arrow-home)" marker-start="url(#arrow-home)" />
+          <!-- 小美 ↔ Lily -->
+          <path class="flow-edge edge-bi fired"
+                d="M 168 220 L 116 408" marker-end="url(#arrow-home)" marker-start="url(#arrow-home)" />
+          <!-- 小美 ↔ 安安 -->
+          <path class="flow-edge edge-bi fired"
+                d="M 200 220 L 200 408" marker-end="url(#arrow-home)" marker-start="url(#arrow-home)" />
+          <!-- 小美 → 人工 -->
+          <path class="flow-edge edge-risk fired"
+                d="M 232 220 L 284 408" marker-end="url(#arrow-home)" />
+        </svg>
+
+        <!-- 节点：用户 -->
+        <div class="flow-node node-user">
+          <div class="node-tag">用户</div>
+          <div class="node-name">User</div>
+        </div>
+
+        <!-- 节点：小美（主） -->
+        <div class="flow-node node-agent node-main">
+          <div class="node-tag">A-01 · 接待</div>
+          <div class="node-name">小美（接待Agent）</div>
+        </div>
+
+        <!-- 节点：Lily -->
+        <div class="flow-node node-agent node-sub node-lily">
+          <div class="node-tag">A-02 · 销售</div>
+          <div class="node-name">Lily（销售Agent）</div>
+        </div>
+
+        <!-- 节点：安安 -->
+        <div class="flow-node node-agent node-sub node-anan">
+          <div class="node-tag">A-03 · 售后</div>
+          <div class="node-name">安安（售后Agent）</div>
+        </div>
+
+        <!-- 节点：人工 -->
+        <div class="flow-node node-agent node-sub node-human">
+          <div class="node-tag">兜底</div>
+          <div class="node-name">人工</div>
+          <div class="node-cn">人工客服</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head section-head-sub">
+      <span class="section-label">03 — 置信度处理</span>
+      <h2 class="section-title">置信度处理流程。</h2>
+    </div>
+    <div class="about-flow">
+      <div class="flow-canvas flow-canvas-confidence" id="confidence-flow-canvas">
+        <svg class="flow-svg" viewBox="0 0 400 530" preserveAspectRatio="none">
+          <defs>
+            <marker id="arrow-conf" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="rgba(255,255,255,0.35)"/>
+            </marker>
+          </defs>
+
+          <!-- 用户输入信息 → 主AGENT判断+置信度评估 -->
+          <path class="flow-edge edge-bi fired"
+                d="M 200 44 L 200 94" marker-end="url(#arrow-conf)" />
+
+          <!-- 主AGENT判断+置信度评估 → 三个阈值-动作卡片 -->
+          <path class="flow-edge edge-bi fired"
+                d="M 184 130 L 100 286" marker-end="url(#arrow-conf)" />
+          <path class="flow-edge edge-bi fired"
+                d="M 200 130 L 200 286" marker-end="url(#arrow-conf)" />
+          <path class="flow-edge edge-bi fired"
+                d="M 216 130 L 300 286" marker-end="url(#arrow-conf)" />
+
+          <!-- 三条路径汇入归档 -->
+          <path class="flow-edge edge-bi fired"
+                d="M 100 346 L 180 428" marker-end="url(#arrow-conf)" />
+          <path class="flow-edge edge-bi fired"
+                d="M 200 346 L 200 428" marker-end="url(#arrow-conf)" />
+          <path class="flow-edge edge-bi fired"
+                d="M 300 346 L 220 428" marker-end="url(#arrow-conf)" />
+        </svg>
+
+        <!-- 用户输入信息 -->
+        <div class="flow-node node-conf-user">
+          <div class="node-tag">用户输入信息</div>
+        </div>
+
+        <!-- 主AGENT判断+置信度评估 -->
+        <div class="flow-node node-conf-judge">
+          <div class="node-tag">主AGENT判断+置信度评估</div>
+        </div>
+
+        <!-- 高置信度：阈值+动作合并 -->
+        <div class="flow-node node-conf-combo node-conf-combo-l">
+          <div class="node-tag node-tag-high">≥85%</div>
+          <div class="node-name">AI直接响应</div>
+          <div class="node-desc">调用Skill处理</div>
+        </div>
+
+        <!-- 中置信度：阈值+动作合并 -->
+        <div class="flow-node node-conf-combo node-conf-combo-c">
+          <div class="node-tag node-tag-mid">60%-85%</div>
+          <div class="node-name">AI回复+复核</div>
+          <div class="node-desc">异步审查</div>
+        </div>
+
+        <!-- 低置信度：阈值+动作合并 -->
+        <div class="flow-node node-conf-combo node-conf-combo-r">
+          <div class="node-tag node-tag-low">&lt;60%</div>
+          <div class="node-name">秒级升级人工</div>
+          <div class="node-desc">15秒内人工接入</div>
+        </div>
+
+        <!-- 汇聚节点 -->
+        <div class="flow-node node-conf-converge">
+          <div class="node-name">归档AGENT持续进化</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-l">© 2026 花颜美妆 · Multi-Agent Demo</div>
+    <div class="footer-r">基于 OpenClaw 构建</div>
+  </footer>
+</section>
+
+<!-- ============================ 二级页：演示 ============================ -->
+<section id="page-demo" class="page page-demo">
+  <header class="topbar topbar-demo">
+    <a href="#home" class="back-btn">
+      <span class="arr-back">←</span> 返回
+    </a>
+    <div class="demo-title">
+      <span class="demo-id" id="demo-agent-id">A-01</span>
+      <span id="demo-agent-name">小美</span>
+      <span class="demo-agent-role" id="demo-agent-role">/ 接待</span>
+    </div>
+    <div class="demo-status" id="demo-status">
+      <span class="status-dot"></span>
+      <span class="status-text">就绪</span>
+    </div>
+  </header>
+
+  <section class="demo-grid">
+    <!-- 左：场景 + 对话 -->
+    <div class="demo-left">
+      <div class="scene-tabs" id="scene-tabs"></div>
+
+      <div class="scene-meta">
+        <div class="scene-meta-head">
+          <div class="scene-meta-num">场景</div>
+          <div class="scene-meta-title" id="scene-meta-title"></div>
+        </div>
+        <div class="scene-meta-summary" id="scene-meta-summary"></div>
+        <div class="scene-meta-chips" id="scene-meta-chips"></div>
+      </div>
+
+      <div class="chat-window" id="chat-window">
+        <div class="chat-empty">
+          <div class="chat-empty-glyph">◇</div>
+          <div>点击 <kbd>播放</kbd> 开始演示</div>
+        </div>
+      </div>
+
+      <div class="chat-controls">
+        <button class="btn-primary" id="btn-play">
+          <span class="play-icon">▶</span> 播放
+        </button>
+        <button class="btn-ghost" id="btn-restart">↻ 重播</button>
+        <label class="speed-control">
+          <span>速度</span>
+          <select id="speed-select">
+            <option value="1">1×</option>
+            <option value="2" selected>2×</option>
+            <option value="4">4×</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <!-- 右：流程图 + 日志 -->
+    <div class="demo-right">
+      <div class="flow-title">
+        <div>
+          <span class="flow-label">链路</span>
+          <span class="flow-name">实时调用编排</span>
+        </div>
+        <span class="flow-legend">
+          <em class="dot dot-active"></em>活跃
+          <em class="dot dot-fired"></em>已触发
+          <em class="dot dot-risk"></em>风险
+        </span>
+      </div>
+
+      <div class="flow-canvas" id="flow-canvas">
+        <svg class="flow-svg" viewBox="0 0 400 540" preserveAspectRatio="none">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="rgba(255,255,255,0.35)"/>
+            </marker>
+            <marker id="arrow-active" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#A78BFA"/>
+            </marker>
+            <marker id="arrow-risk" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#FB7185"/>
+            </marker>
+            <marker id="arrow-cyan" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#22D3EE"/>
+            </marker>
+          </defs>
+
+          <!-- 用户 ↔ 小美 -->
+          <path class="flow-edge edge-bi" data-edge="user-xiaomei"
+                d="M 200 56 L 200 144" marker-end="url(#arrow)" marker-start="url(#arrow)" />
+          <!-- 小美 ↔ data (右侧工具) -->
+          <path class="flow-edge edge-tool" data-edge="xiaomei-data"
+                d="M 262 188 L 314 188" marker-end="url(#arrow)" marker-start="url(#arrow)" />
+          <!-- 小美 ↔ Lily -->
+          <path class="flow-edge edge-bi" data-edge="xiaomei-lily"
+                d="M 168 220 L 72 408" marker-end="url(#arrow)" marker-start="url(#arrow)" />
+          <!-- 小美 ↔ 安安 -->
+          <path class="flow-edge edge-bi" data-edge="xiaomei-anan"
+                d="M 200 220 L 200 408" marker-end="url(#arrow)" marker-start="url(#arrow)" />
+          <!-- 小美 → 人工（单向风险） -->
+          <path class="flow-edge edge-risk" data-edge="xiaomei-human"
+                d="M 232 220 L 328 408" marker-end="url(#arrow)" />
+
+          <!-- data → 子 agent 数据流（淡） -->
+          <path class="flow-edge edge-faint" data-edge="data-lily"
+                d="M 352 218 Q 240 320 90 406" />
+          <path class="flow-edge edge-faint" data-edge="data-anan"
+                d="M 352 218 Q 280 320 200 406" />
+        </svg>
+
+        <!-- 节点：用户 -->
+        <div class="flow-node node-user" data-node="user">
+          <div class="node-tag">用户</div>
+          <div class="node-name">User</div>
+        </div>
+
+        <!-- 节点：小美（主） -->
+        <div class="flow-node node-agent node-main" data-node="xiaomei">
+          <div class="node-tag">A-01 · 接待</div>
+          <div class="node-name">小美（接待Agent）</div>
+        </div>
+
+        <!-- 节点：data 工具 -->
+        <div class="flow-node node-tool" data-node="data">
+          <div class="node-tag">工具</div>
+          <div class="node-name">data/</div>
+          <div class="node-sub">JSON</div>
+        </div>
+
+        <!-- 节点：Lily / 安安 / 人工 同层同尺寸 -->
+        <div class="flow-node node-agent node-sub node-lily" data-node="lily">
+          <div class="node-tag">A-02 · 销售</div>
+          <div class="node-name">Lily（销售Agent）</div>
+        </div>
+        <div class="flow-node node-agent node-sub node-anan" data-node="anan">
+          <div class="node-tag">A-03 · 售后</div>
+          <div class="node-name">安安（售后Agent）</div>
+        </div>
+        <div class="flow-node node-agent node-sub node-human" data-node="human">
+          <div class="node-tag">兜底</div>
+          <div class="node-name">人工</div>
+          <div class="node-cn">人工客服</div>
+        </div>
+      </div>
+
+      <!-- 工具调用日志 -->
+      <div class="flow-log">
+        <div class="flow-log-head">
+          <span class="flow-log-title">调用日志</span>
+          <span class="flow-log-count" id="flow-log-count">0</span>
+        </div>
+        <div class="flow-log-list" id="flow-log-list">
+          <div class="flow-log-empty">等待事件…</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
